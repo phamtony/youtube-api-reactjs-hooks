@@ -23,10 +23,6 @@ const App = () => {
         setSelectedVideo(response.data.items[0]);
     };
 
-    const onSelectedVideo = selected => {
-        setSelectedVideo(selected);
-    };
-
     return (
         <div className="ui container">
             <SearchBar onTermSubmit={onTermSubmit}/>
@@ -36,7 +32,11 @@ const App = () => {
                         <VideoDetail video={selectedVideo}/>
                     </div>
                     <div className="five wide column">
-                        <VideoList videos={videos} onSelectedVideo={onSelectedVideo} />
+                        <VideoList
+                            videos={videos}
+                            // onSelectedVideo={(selected) => setSelectedVideo(selected)} the same refactored version down below
+                            onSelectedVideo={setSelectedVideo}
+                        />
                     </div>
                 </div>
             </div>

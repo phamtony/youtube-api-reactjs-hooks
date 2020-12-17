@@ -1,20 +1,34 @@
 import React from "react";
 import SearchBar from "./SearchBar";
 import Youtube from "../api/Youtube";
+import VideoList from "./VideoList";
 
 class App extends React.Component {
+    state = {videos: []};
+
     onTermSubmit = async (term) => {
         const response = await Youtube.get('/search', {
             params: {
                 q: term
             }
         });
+
+        this.setState({videos: response.data.items});
     };
 
     render () {
         return (
-            <div>
+            <div className="ui container">
                 <SearchBar onTermSubmit={this.onTermSubmit}/>
+                <div className="ui grid">
+                    <div className="ui row">
+                        <div className="eleven wide column">
+                        </div>
+                        <div className="five wide column">
+                            <VideoList videos={this.state.videos} />
+                        </div>
+                    </div>
+                </div>
             </div>
         );
     }

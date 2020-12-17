@@ -5,7 +5,7 @@ import VideoList from "./VideoList";
 import VideoDetail from "./VideoDetail";
 
 class App extends React.Component {
-    state = {videos: []};
+    state = {videos: [], selectedVideo: null};
 
     onTermSubmit = async (term) => {
         const response = await Youtube.get('/search', {
@@ -14,7 +14,14 @@ class App extends React.Component {
             }
         });
 
-        this.setState({videos: response.data.items});
+        this.setState({
+            videos: response.data.items,
+            selectedVideo: response.data.items[0]
+        });
+    };
+
+    onSelectedVideo = (selected) => {
+        this.setState({selectedVideo: selected})
     };
 
     render () {
@@ -24,10 +31,10 @@ class App extends React.Component {
                 <div className="ui grid">
                     <div className="ui row">
                         <div className="eleven wide column">
-                            <VideoDetail video={this.state.videos[0]}/>
+                            <VideoDetail video={this.state.selectedVideo}/>
                         </div>
                         <div className="five wide column">
-                            <VideoList videos={this.state.videos} />
+                            <VideoList videos={this.state.videos} onSelectedVideo={this.onSelectedVideo} />
                         </div>
                     </div>
                 </div>

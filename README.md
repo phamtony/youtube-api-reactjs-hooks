@@ -1,1 +1,3 @@
-interface to search for youtube videos using the youtube api.
+# Youtube App with Reactjs
+
+Interface to search for youtube videos using the youtube api.
